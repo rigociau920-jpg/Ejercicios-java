@@ -1,0 +1,191 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Ejercicios Java & HTML</title>
+    <style>
+        :root {
+            --bg-color: #0f172a;
+            --card-bg: #1e293b;
+            --text-primary: #f8fafc;
+            --text-secondary: #94a3b8;
+            --accent: #38bdf8;
+            --accent-hover: #0ea5e9;
+            --font-main: 'Inter', system-ui, -apple-system, sans-serif;
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: var(--font-main);
+            background-color: var(--bg-color);
+            color: var(--text-primary);
+            min-height: 100vh;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            padding: 2rem;
+        }
+
+        header {
+            text-align: center;
+            margin-bottom: 3rem;
+            animation: fadeInDown 0.8s ease-out;
+        }
+
+        h1 {
+            font-size: 2.5rem;
+            font-weight: 800;
+            margin-bottom: 0.5rem;
+            background: linear-gradient(to right, var(--accent), #818cf8);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+        }
+
+        p.subtitle {
+            color: var(--text-secondary);
+            font-size: 1.1rem;
+        }
+
+        .grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+            gap: 1.5rem;
+            width: 100%;
+            max-width: 1200px;
+            animation: fadeInUp 1s ease-out;
+        }
+
+        .card {
+            background-color: var(--card-bg);
+            border-radius: 1rem;
+            padding: 1.5rem;
+            text-decoration: none;
+            color: inherit;
+            transition: transform 0.3s ease, box-shadow 0.3s ease;
+            border: 1px solid rgba(255, 255, 255, 0.05);
+            display: flex;
+            flex-direction: column;
+            justify-content: space-between;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .card::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 4px;
+            background: linear-gradient(to right, var(--accent), #818cf8);
+            transform: scaleX(0);
+            transform-origin: left;
+            transition: transform 0.3s ease;
+        }
+
+        .card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 10px 30px -10px rgba(0, 0, 0, 0.5);
+        }
+
+        .card:hover::before {
+            transform: scaleX(1);
+        }
+
+        .card-title {
+            font-size: 1.25rem;
+            font-weight: 600;
+            margin-bottom: 0.5rem;
+            color: var(--text-primary);
+        }
+
+        .card-desc {
+            font-size: 0.9rem;
+            color: var(--text-secondary);
+            line-height: 1.5;
+        }
+
+        .card-icon {
+            margin-bottom: 1rem;
+            font-size: 2rem;
+        }
+
+        @keyframes fadeInDown {
+            from { opacity: 0; transform: translateY(-20px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+
+        @keyframes fadeInUp {
+            from { opacity: 0; transform: translateY(20px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+
+        @media (max-width: 600px) {
+            h1 { font-size: 2rem; }
+            .grid { grid-template-columns: 1fr; }
+        }
+    </style>
+</head>
+<body>
+    <header>
+        <h1>Colección de Ejercicios</h1>
+        <p class="subtitle">Explora los proyectos de Java y HTML</p>
+    </header>
+
+    <main class="grid">
+        <a href="./Logica-dia-2/index.html" class="card">
+            <div class="card-icon">🧠</div>
+            <div>
+                <h2 class="card-title">Lógica Día 2</h2>
+                <p class="card-desc">Ejercicios de lógica de programación y algoritmos básicos.</p>
+            </div>
+        </a>
+
+        <a href="./analisis-texto/index.html" class="card">
+            <div class="card-icon">📝</div>
+            <div>
+                <h2 class="card-title">Análisis de Texto</h2>
+                <p class="card-desc">Herramienta para analizar y procesar cadenas de texto.</p>
+            </div>
+        </a>
+
+        <a href="./calculadora/index.html" class="card">
+            <div class="card-icon">🧮</div>
+            <div>
+                <h2 class="card-title">Calculadora</h2>
+                <p class="card-desc">Una calculadora funcional con operaciones básicas.</p>
+            </div>
+        </a>
+
+        <a href="./dom-dia-2/index.html" class="card">
+            <div class="card-icon">🌐</div>
+            <div>
+                <h2 class="card-title">DOM Día 2</h2>
+                <p class="card-desc">Prácticas de manipulación del Document Object Model.</p>
+            </div>
+        </a>
+
+        <a href="./generador-colores/index.html" class="card">
+            <div class="card-icon">🎨</div>
+            <div>
+                <h2 class="card-title">Generador de Colores</h2>
+                <p class="card-desc">Genera paletas de colores aleatorias o personalizadas.</p>
+            </div>
+        </a>
+
+        <a href="./reloj-alarma/index.html" class="card">
+            <div class="card-icon">⏰</div>
+            <div>
+                <h2 class="card-title">Reloj Alarma</h2>
+                <p class="card-desc">Un reloj digital con funcionalidad de alarma.</p>
+            </div>
+        </a>
+    </main>
+</body>
+</html>
