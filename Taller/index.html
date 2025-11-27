@@ -47,6 +47,16 @@
             -webkit-text-fill-color: transparent;
         }
 
+        .main-title {
+            font-size: 3rem;
+            font-weight: 900;
+            margin-bottom: 1rem;
+            background: linear-gradient(135deg, #38bdf8 0%, #818cf8 50%, #d8b4fe 100%);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            letter-spacing: -0.02em;
+        }
+
         p.subtitle {
             color: var(--text-secondary);
             font-size: 1.1rem;
@@ -98,7 +108,34 @@
             transform: scaleX(1);
         }
 
-        .card-title {
+        .card {
+            animation: slideIn 0.6s ease-out backwards;
+        }
+
+        .card:nth-child(1) { animation-delay: 0.1s; }
+        .card:nth-child(2) { animation-delay: 0.2s; }
+        .card:nth-child(3) { animation-delay: 0.3s; }
+        .card:nth-child(4) { animation-delay: 0.4s; }
+        .card:nth-child(5) { animation-delay: 0.5s; }
+        .card:nth-child(6) { animation-delay: 0.6s; }
+        .card:nth-child(7) { animation-delay: 0.7s; }
+        .card:nth-child(8) { animation-delay: 0.8s; }
+        .card:nth-child(9) { animation-delay: 0.9s; }
+        .card:nth-child(10) { animation-delay: 1s; }
+        .card:nth-child(11) { animation-delay: 1.1s; }
+
+        @keyframes slideIn {
+            from {
+                opacity: 0;
+                transform: translateY(20px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        .card-icon {
             font-size: 1.25rem;
             font-weight: 600;
             margin-bottom: 0.5rem;
@@ -114,6 +151,19 @@
         .card-icon {
             margin-bottom: 1rem;
             font-size: 2rem;
+            transition: transform 0.3s cubic-bezier(0.4, 0.0, 0.2, 1);
+        }
+
+        .card:hover .card-icon {
+            transform: scale(1.2) rotate(5deg);
+        }
+
+        .card-title {
+            transition: color 0.3s ease;
+        }
+
+        .card:hover .card-title {
+            color: var(--accent);
         }
 
         @keyframes fadeInDown {
@@ -134,12 +184,13 @@
 </head>
 <body>
     <header>
-        <h1>Colección de Ejercicios</h1>
+        <h1 class="main-title">Taller de Programación con IA</h1>
+        <h2 style="font-size: 1.8rem; color: var(--text-primary); margin-bottom: 0.5rem; font-weight: 600;">Colección de Ejercicios</h2>
         <p class="subtitle">Explora los proyectos de Java y HTML</p>
     </header>
 
     <main class="grid">
-        <a href="./Logica-dia-2/index.html" class="card">
+        <a href="../Logica-dia-2/index.html" class="card">
             <div class="card-icon">🧠</div>
             <div>
                 <h2 class="card-title">Lógica Día 2</h2>
@@ -147,7 +198,7 @@
             </div>
         </a>
 
-        <a href="./analisis-texto/index.html" class="card">
+        <a href="../analisis-texto/index.html" class="card">
             <div class="card-icon">📝</div>
             <div>
                 <h2 class="card-title">Análisis de Texto</h2>
@@ -155,7 +206,7 @@
             </div>
         </a>
 
-        <a href="./calculadora/index.html" class="card">
+        <a href="../calculadora/index.html" class="card">
             <div class="card-icon">🧮</div>
             <div>
                 <h2 class="card-title">Calculadora</h2>
@@ -163,7 +214,7 @@
             </div>
         </a>
 
-        <a href="./dom-dia-2/index.html" class="card">
+        <a href="../dom-dia-2/index.html" class="card">
             <div class="card-icon">🌐</div>
             <div>
                 <h2 class="card-title">DOM Día 2</h2>
@@ -171,7 +222,7 @@
             </div>
         </a>
 
-        <a href="./generador-colores/index.html" class="card">
+        <a href="../generador-colores/index.html" class="card">
             <div class="card-icon">🎨</div>
             <div>
                 <h2 class="card-title">Generador de Colores</h2>
@@ -179,11 +230,51 @@
             </div>
         </a>
 
-        <a href="./reloj-alarma/index.html" class="card">
+        <a href="../reloj-alarma/index.html" class="card">
             <div class="card-icon">⏰</div>
             <div>
                 <h2 class="card-title">Reloj Alarma</h2>
                 <p class="card-desc">Un reloj digital con funcionalidad de alarma.</p>
+            </div>
+        </a>
+
+        <a href="../api-dia-3/index.html" class="card">
+            <div class="card-icon">🐦</div>
+            <div>
+                <h2 class="card-title">Pokedex</h2>
+                <p class="card-desc">Busca Pokémon y descubre sus características usando PokeAPI.</p>
+            </div>
+        </a>
+
+        <a href="../api-rick-morty/index.html" class="card">
+            <div class="card-icon">🎬</div>
+            <div>
+                <h2 class="card-title">Rick & Morty</h2>
+                <p class="card-desc">Explora personajes de la serie Rick and Morty.</p>
+            </div>
+        </a>
+
+        <a href="../galeria-perros/index.html" class="card">
+            <div class="card-icon">🐕</div>
+            <div>
+                <h2 class="card-title">Galería de Perros</h2>
+                <p class="card-desc">Explora diferentes razas de perros con galería interactiva.</p>
+            </div>
+        </a>
+
+        <a href="../tamagochi/index.html" class="card">
+            <div class="card-icon">🎮</div>
+            <div>
+                <h2 class="card-title">Tamagochi Virtual</h2>
+                <p class="card-desc">Cuida tu gato virtual y mantén sus estados en equilibrio.</p>
+            </div>
+        </a>
+
+        <a href="../Funciones-dia-3/index.html" class="card">
+            <div class="card-icon">🔍</div>
+            <div>
+                <h2 class="card-title">Validador de Palíndromos</h2>
+                <p class="card-desc">Verifica si una palabra es un palíndromo de forma interactiva.</p>
             </div>
         </a>
     </main>

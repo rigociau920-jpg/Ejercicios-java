@@ -5,193 +5,380 @@
   <meta name="viewport" content="width=device-width, initial-scale=1">
   <title>Validador de Palíndromos</title>
   <style>
-    :root{ --bg:#f6f8fa; --card:#fff; --accent:#4a90e2; --success:#27ae60; --danger:#e74c3c; }
-    *{box-sizing:border-box}
-    body{font-family:Segoe UI, Tahoma, Arial, sans-serif;background:var(--bg);margin:0;padding:24px;display:flex;align-items:center;justify-content:center;min-height:100vh}
-    .card{background:var(--card);border-radius:12px;padding:22px;max-width:740px;width:100%;box-shadow:0 8px 30px rgba(21,32,48,0.08)}
-    h1{margin:0 0 12px;font-size:1.5rem;color:#223}
-    p.lead{margin:0 0 18px;color:#445}
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+    }
 
-    .controls{display:flex;gap:8px;margin-bottom:14px}
-    input[type="text"], textarea{width:100%;padding:12px;border-radius:8px;border:1px solid #dde4eb;font-size:1rem}
-    textarea{min-height:96px;resize:vertical}
-    button{padding:10px 14px;border-radius:8px;border:none;cursor:pointer;font-weight:700}
-    button.primary{background:var(--accent);color:#fff}
-    button.ghost{background:transparent;border:2px solid #e1e7ee;color:#223}
+    body {
+      font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+      background: linear-gradient(135deg, #1a1a2e 0%, #16213e 100%);
+      color: #f0f0f0;
+      min-height: 100vh;
+      padding: 20px;
+    }
 
-    .result{display:flex;align-items:center;gap:12px;margin-bottom:12px}
-    .badge{padding:8px 12px;border-radius:8px;font-weight:700}
-    .badge.true{background:var(--success);color:#fff}
-    .badge.false{background:var(--danger);color:#fff}
+    .header {
+      text-align: center;
+      margin-bottom: 30px;
+    }
 
-    .details{display:flex;gap:12px;flex-wrap:wrap}
-    .panel{flex:1;min-width:220px;padding:12px;border-radius:8px;background:#fbfdff;border:1px solid #eef4fb}
-    .panel h4{margin:0 0 8px;font-size:0.9rem;color:#324}
-    .panel pre{white-space:pre-wrap;margin:0;font-family:inherit;color:#223;font-size:0.95rem}
+    h1 {
+      font-size: 2.5rem;
+      color: #00d4ff;
+      margin-bottom: 10px;
+      text-shadow: 0 0 10px rgba(0, 212, 255, 0.5);
+    }
 
-    .examples{margin-top:14px}
-    .example-btn{background:#f1f5fc;border:1px solid #dbe8ff;padding:8px 10px;border-radius:8px;margin-right:8px;cursor:pointer}
+    .subtitle {
+      font-size: 1rem;
+      color: #b0b0b0;
+      margin-bottom: 20px;
+    }
 
-    .foot{margin-top:14px;color:#556;font-size:0.9rem}
+    .search-section {
+      display: flex;
+      gap: 10px;
+      justify-content: center;
+      margin-bottom: 30px;
+      flex-wrap: wrap;
+      max-width: 1200px;
+      margin-left: auto;
+      margin-right: auto;
+    }
 
-    @media (max-width:600px){.details{flex-direction:column}}
+    #palindromoInput {
+      padding: 12px 16px;
+      border: 2px solid #00d4ff;
+      border-radius: 8px;
+      background: #0f3460;
+      color: #f0f0f0;
+      font-size: 1rem;
+      min-width: 280px;
+      transition: all 0.3s ease;
+    }
+
+    #palindromoInput:focus {
+      outline: none;
+      box-shadow: 0 0 12px rgba(0, 212, 255, 0.6);
+      background: #16213e;
+    }
+
+    .btn-group {
+      display: flex;
+      gap: 10px;
+      flex-wrap: wrap;
+      justify-content: center;
+    }
+
+    button {
+      padding: 12px 24px;
+      border: none;
+      border-radius: 8px;
+      color: #000;
+      font-weight: 700;
+      cursor: pointer;
+      font-size: 0.9rem;
+      transition: all 0.3s ease;
+      text-transform: uppercase;
+      letter-spacing: 1px;
+    }
+
+    .btn-primary {
+      background: linear-gradient(135deg, #00d4ff 0%, #0099cc 100%);
+    }
+
+    .btn-primary:hover {
+      transform: translateY(-2px);
+      box-shadow: 0 8px 20px rgba(0, 212, 255, 0.4);
+    }
+
+    .btn-primary:active {
+      transform: translateY(0);
+    }
+
+    .btn-secondary {
+      background: linear-gradient(135deg, #ff006e 0%, #d60057 100%);
+      padding: 12px 20px;
+      font-size: 0.85rem;
+    }
+
+    .btn-secondary:hover {
+      transform: translateY(-2px);
+      box-shadow: 0 8px 20px rgba(255, 0, 110, 0.4);
+    }
+
+    .results-container {
+      max-width: 1200px;
+      margin-left: auto;
+      margin-right: auto;
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+      gap: 20px;
+    }
+
+    .result-card {
+      background: rgba(15, 52, 96, 0.5);
+      border: 2px solid #00d4ff;
+      border-radius: 12px;
+      padding: 20px;
+      transition: all 0.3s ease;
+    }
+
+    .result-card:hover {
+      transform: translateY(-5px);
+      box-shadow: 0 8px 25px rgba(0, 212, 255, 0.3);
+      border-color: #ff006e;
+    }
+
+    .result-header {
+      display: flex;
+      align-items: center;
+      gap: 12px;
+      margin-bottom: 15px;
+    }
+
+    .status-badge {
+      padding: 8px 16px;
+      border-radius: 8px;
+      font-weight: 700;
+      font-size: 0.85rem;
+      text-transform: uppercase;
+      letter-spacing: 1px;
+    }
+
+    .status-badge.palindromo {
+      background: linear-gradient(135deg, #00d4ff 0%, #0099cc 100%);
+      color: #000;
+    }
+
+    .status-badge.no-palindromo {
+      background: linear-gradient(135deg, #ff006e 0%, #d60057 100%);
+      color: #fff;
+    }
+
+    .word-display {
+      font-size: 1.3rem;
+      font-weight: 700;
+      color: #00d4ff;
+      word-break: break-all;
+    }
+
+    .comparison {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 15px;
+      margin-top: 15px;
+    }
+
+    .comparison-item {
+      background: rgba(0, 0, 0, 0.3);
+      padding: 12px;
+      border-radius: 8px;
+      border-left: 3px solid #00d4ff;
+    }
+
+    .comparison-item h4 {
+      font-size: 0.85rem;
+      color: #b0b0b0;
+      margin-bottom: 8px;
+      text-transform: uppercase;
+      letter-spacing: 1px;
+    }
+
+    .comparison-item p {
+      font-size: 1rem;
+      color: #00d4ff;
+      font-weight: 600;
+      word-break: break-all;
+    }
+
+    .loading {
+      text-align: center;
+      padding: 40px;
+      font-size: 1.2rem;
+      color: #00d4ff;
+    }
+
+    .error {
+      text-align: center;
+      padding: 20px;
+      background: rgba(255, 68, 68, 0.1);
+      border: 2px solid #ff4444;
+      border-radius: 8px;
+      color: #ff8888;
+      max-width: 600px;
+      margin: 0 auto 20px;
+    }
+
+    .empty-state {
+      text-align: center;
+      padding: 60px 20px;
+      color: #b0b0b0;
+    }
+
+    .empty-state p {
+      font-size: 1.1rem;
+    }
+
+    .examples-section {
+      margin-top: 30px;
+      text-align: center;
+    }
+
+    .examples-section h3 {
+      color: #00d4ff;
+      margin-bottom: 15px;
+      font-size: 1.1rem;
+    }
+
+    .example-buttons {
+      display: flex;
+      gap: 10px;
+      justify-content: center;
+      flex-wrap: wrap;
+    }
+
+    .example-btn {
+      background: rgba(0, 212, 255, 0.1);
+      border: 2px solid #00d4ff;
+      color: #00d4ff;
+      padding: 8px 16px;
+      border-radius: 6px;
+      cursor: pointer;
+      font-weight: 600;
+      transition: all 0.3s ease;
+    }
+
+    .example-btn:hover {
+      background: rgba(0, 212, 255, 0.2);
+      transform: translateY(-2px);
+    }
+
+    @media (max-width: 600px) {
+      h1 {
+        font-size: 1.8rem;
+      }
+
+      .search-section {
+        flex-direction: column;
+      }
+
+      #palindromoInput {
+        min-width: 100%;
+      }
+
+      .comparison {
+        grid-template-columns: 1fr;
+      }
+
+      .btn-group {
+        flex-direction: column;
+      }
+
+      button {
+        width: 100%;
+      }
+    }
   </style>
 </head>
 <body>
-  <div class="card">
-    <h1>Validador de Palíndromos</h1>
-    <p class="lead">Escribe una palabra o frase y verifica si es un palíndromo. Esta página usa la función <code>esPalindromo</code> de <strong>palindromo.js</strong>.</p>
-
-    <!-- Input area -->
-    <div style="margin-bottom:10px">
-      <textarea id="texto" placeholder="Ej: 'Anita lava la tina' o 'reconocer'" aria-label="Texto a validar"></textarea>
-    </div>
-
-    <div class="controls">
-      <button id="btnCheck" class="primary">Verificar</button>
-      <button id="btnClear" class="ghost">Limpiar</button>
-      <button id="btnLive" class="ghost">Activar verificación en tiempo real</button>
-    </div>
-
-    <!-- Result -->
-    <div class="result" id="resultArea" aria-live="polite">
-      <div id="resultBadge" class="badge" style="display:none"></div>
-      <div id="resultText" style="color:#334;font-weight:600"></div>
-    </div>
-
-    <!-- Details: texto limpio e invertido -->
-    <div class="details">
-      <div class="panel">
-        <h4>Texto limpio (sin espacios, minúsculas)</h4>
-        <pre id="cleanText">—</pre>
-      </div>
-
-      <div class="panel">
-        <h4>Texto invertido</h4>
-        <pre id="reversedText">—</pre>
-      </div>
-    </div>
-
-    <!-- Examples -->
-    <div class="examples">
-      <h4>Ejemplos rápidos:</h4>
-      <button class="example-btn" data-text="reconocer">reconocer</button>
-      <button class="example-btn" data-text="Anita lava la tina">Anita lava la tina</button>
-      <button class="example-btn" data-text="A mamá Roma le aviva el amor a mamá">A mamá Roma le aviva el amor a mamá</button>
-      <button class="example-btn" data-text="oso">oso</button>
-      <button class="example-btn" data-text="esto no es palindromo">No</button>
-    </div>
-
-    <p class="foot">Nota: <em>palindromo.js</em> actualmente elimina espacios y normaliza a minúsculas. No elimina signos de puntuación ni tildes; si deseas normalizar puntuación o caracteres Unicode, actualiza la función <code>esPalindromo</code>.</p>
+  <div class="header">
+    <h1>🔍 Validador de Palíndromos</h1>
+    <p class="subtitle">Verifica si una palabra o frase es un palíndromo</p>
   </div>
 
-  <!-- Cargar la lógica del palíndromo -->
+  <div class="search-section">
+    <input 
+      type="text" 
+      id="palindromoInput" 
+      placeholder="Ej: 'Anita lava la tina' o 'reconocer'"
+      aria-label="Texto a validar"
+    >
+    <div class="btn-group">
+      <button class="btn-primary" id="validarBtn">Validar</button>
+      <button class="btn-secondary" id="limpiarBtn">Limpiar</button>
+    </div>
+  </div>
+
+  <div id="resultados" class="results-container"></div>
+
+  <div class="examples-section">
+    <h3>Ejemplos rápidos:</h3>
+    <div class="example-buttons">
+      <button class="example-btn" onclick="validarEjemplo('Anita lava la tina')">Anita lava la tina</button>
+      <button class="example-btn" onclick="validarEjemplo('reconocer')">reconocer</button>
+      <button class="example-btn" onclick="validarEjemplo('Amor a Roma')">Amor a Roma</button>
+      <button class="example-btn" onclick="validarEjemplo('ojo')">ojo</button>
+      <button class="example-btn" onclick="validarEjemplo('nivel')">nivel</button>
+      <button class="example-btn" onclick="validarEjemplo('Hola mundo')">Hola mundo</button>
+    </div>
+  </div>
+
   <script src="palindromo.js"></script>
-
-  <!-- Script que conecta la UI con palindromo.js -->
   <script>
-    // Elementos del DOM
-    const textoEl = document.getElementById('texto');
-    const btnCheck = document.getElementById('btnCheck');
-    const btnClear = document.getElementById('btnClear');
-    const btnLive = document.getElementById('btnLive');
-    const resultBadge = document.getElementById('resultBadge');
-    const resultText = document.getElementById('resultText');
-    const cleanTextEl = document.getElementById('cleanText');
-    const reversedTextEl = document.getElementById('reversedText');
-    const exampleBtns = document.querySelectorAll('.example-btn');
+    const palindromoInput = document.getElementById('palindromoInput');
+    const validarBtn = document.getElementById('validarBtn');
+    const limpiarBtn = document.getElementById('limpiarBtn');
+    const resultados = document.getElementById('resultados');
 
-    let liveMode = false; // si true, verifica en cada pulsación
+    validarBtn.addEventListener('click', validar);
+    limpiarBtn.addEventListener('click', limpiar);
 
-    // Función auxiliar para obtener versión "limpia" igual a la usada en palindromo.js
-    // (la función esPalindromo en palindromo.js quita espacios y pasa a minúsculas)
-    function getCleanText(input) {
-      // Mismos pasos que en palindromo.js: toLowerCase + eliminar espacios
-      if (typeof input !== 'string') return '';
-      return input.toLowerCase().replace(/\s+/g, '');
-    }
+    palindromoInput.addEventListener('keypress', (e) => {
+      if (e.key === 'Enter') validar();
+    });
 
-    // Función auxiliar para invertir texto limpio
-    function getReversed(clean) {
-      return clean.split('').reverse().join('');
-    }
-
-    // Mostrar resultado en UI
-    function showResult(isPal, originalText) {
-      if (isPal) {
-        resultBadge.textContent = 'ES PALÍNDROMO';
-        resultBadge.className = 'badge true';
-        resultBadge.style.display = 'inline-block';
-        resultText.textContent = `✅ "${originalText.trim()}" es un palíndromo.`;
-      } else {
-        resultBadge.textContent = 'NO ES';
-        resultBadge.className = 'badge false';
-        resultBadge.style.display = 'inline-block';
-        resultText.textContent = `❌ "${originalText.trim()}" no es un palíndromo.`;
-      }
-    }
-
-    // Acción principal: verificar palíndromo usando esPalindromo del archivo palindromo.js
-    function verificar() {
-      const value = textoEl.value || '';
-
-      if (value.trim().length === 0) {
-        // Mostrar estado vacío
-        resultBadge.style.display = 'none';
-        resultText.textContent = 'Escribe una palabra o frase para verificar.';
-        cleanTextEl.textContent = '—';
-        reversedTextEl.textContent = '—';
+    function validar() {
+      const texto = palindromoInput.value.trim();
+      
+      if (!texto) {
+        resultados.innerHTML = '<div class="error">Por favor ingresa una palabra o frase</div>';
         return;
       }
 
-      // Obtener texto limpio e invertido para mostrar
-      const clean = getCleanText(value);
-      const reversed = getReversed(clean);
-
-      cleanTextEl.textContent = clean || '—';
-      reversedTextEl.textContent = reversed || '—';
-
-      // Llamada a la función del archivo palindromo.js
-      // esPalindromo devuelve true/false
-      const result = esPalindromo(value);
-
-      showResult(result, value);
+      const esValidoPalindromo = esPalindromo(texto);
+      mostrarResultado(texto, esValidoPalindromo);
     }
 
-    // Event listeners
-    btnCheck.addEventListener('click', verificar);
-    btnClear.addEventListener('click', () => {
-      textoEl.value = '';
-      verificar();
-      textoEl.focus();
-    });
+    function mostrarResultado(texto, esValidoPalindromo) {
+      const textolimpio = texto.toLowerCase().replace(/\s+/g, '');
+      const textoinvertido = textolimpio.split('').reverse().join('');
 
-    btnLive.addEventListener('click', () => {
-      liveMode = !liveMode;
-      btnLive.textContent = liveMode ? 'Desactivar verificación en tiempo real' : 'Activar verificación en tiempo real';
-      // Si activamos y hay texto, ejecutar una verificación inmediata
-      if (liveMode) verificar();
-    });
+      const html = `
+        <div class="result-card">
+          <div class="result-header">
+            <div class="status-badge ${esValidoPalindromo ? 'palindromo' : 'no-palindromo'}">
+              ${esValidoPalindromo ? '✓ Palíndromo' : '✗ No es palíndromo'}
+            </div>
+          </div>
+          <div class="word-display">"${texto}"</div>
+          <div class="comparison">
+            <div class="comparison-item">
+              <h4>Original (limpio)</h4>
+              <p>${textolimpio}</p>
+            </div>
+            <div class="comparison-item">
+              <h4>Invertido</h4>
+              <p>${textoinvertido}</p>
+            </div>
+          </div>
+        </div>
+      `;
+      resultados.innerHTML = html;
+    }
 
-    // Si el modo en tiempo real está activado, verificar en cada input
-    textoEl.addEventListener('input', () => {
-      if (liveMode) verificar();
-    });
+    function validarEjemplo(texto) {
+      palindromoInput.value = texto;
+      validar();
+    }
 
-    // Cargar ejemplos
-    exampleBtns.forEach(btn => {
-      btn.addEventListener('click', () => {
-        const txt = btn.getAttribute('data-text') || '';
-        textoEl.value = txt;
-        verificar();
-      });
-    });
-
-    // Inicializar UI
-    verificar();
-
-    // Mensaje en consola para desarrolladores
-    console.log('Validador de palíndromos listo.');
+    function limpiar() {
+      palindromoInput.value = '';
+      resultados.innerHTML = '';
+      palindromoInput.focus();
+    }
   </script>
 </body>
 </html>

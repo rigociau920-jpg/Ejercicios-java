@@ -1,0 +1,386 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>🐱 Tamagochi - Mi Gato Virtual</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Arial', sans-serif;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            min-height: 100vh;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            padding: 20px;
+        }
+
+        .container {
+            background: white;
+            border-radius: 20px;
+            box-shadow: 0 20px 60px rgba(0, 0, 0, 0.3);
+            padding: 40px;
+            max-width: 500px;
+            width: 100%;
+            animation: fadeIn 0.5s ease-out;
+        }
+
+        header {
+            text-align: center;
+            margin-bottom: 30px;
+        }
+
+        h1 {
+            color: #333;
+            margin-bottom: 10px;
+            font-size: 2.5rem;
+        }
+
+        .subtitle {
+            color: #666;
+            font-size: 1rem;
+        }
+
+        /* Pantalla del Tamagochi */
+        .screen {
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            border-radius: 15px;
+            padding: 30px;
+            margin-bottom: 30px;
+            text-align: center;
+            min-height: 300px;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            color: white;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .cat-container {
+            font-size: 100px;
+            margin: 20px 0;
+            animation: bounce 0.6s ease-in-out infinite;
+            position: relative;
+        }
+
+        .cat-container.happy {
+            animation: bounce 0.4s ease-in-out infinite;
+        }
+
+        .cat-container.sad {
+            animation: wobble 0.5s ease-in-out infinite;
+            opacity: 0.7;
+        }
+
+        .cat-container.tired {
+            animation: sleep 1s ease-in-out infinite;
+        }
+
+        .thought-bubble {
+            background: rgba(255, 255, 255, 0.2);
+            border-radius: 10px;
+            padding: 15px;
+            margin-top: 15px;
+            font-size: 0.9rem;
+            font-style: italic;
+            min-height: 40px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            backdrop-filter: blur(10px);
+        }
+
+        /* Barras de estado */
+        .stats {
+            background: #f5f5f5;
+            border-radius: 10px;
+            padding: 20px;
+            margin-bottom: 30px;
+        }
+
+        .stat-item {
+            margin-bottom: 15px;
+        }
+
+        .stat-item:last-child {
+            margin-bottom: 0;
+        }
+
+        .stat-label {
+            display: flex;
+            justify-content: space-between;
+            margin-bottom: 8px;
+            color: #333;
+            font-weight: bold;
+        }
+
+        .stat-bar {
+            background: #ddd;
+            border-radius: 10px;
+            height: 20px;
+            overflow: hidden;
+        }
+
+        .stat-fill {
+            height: 100%;
+            transition: width 0.3s ease;
+            border-radius: 10px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: white;
+            font-size: 0.75rem;
+            font-weight: bold;
+        }
+
+        .hambre-fill {
+            background: linear-gradient(90deg, #ff6b6b, #feca57);
+        }
+
+        .energia-fill {
+            background: linear-gradient(90deg, #48dbfb, #1dd1a1);
+        }
+
+        .felicidad-fill {
+            background: linear-gradient(90deg, #ff9ff3, #feca57);
+        }
+
+        /* Nombre del gato */
+        .pet-name {
+            text-align: center;
+            margin-bottom: 20px;
+            font-size: 1.3rem;
+            color: #333;
+        }
+
+        .pet-name input {
+            padding: 8px 12px;
+            border: 2px solid #667eea;
+            border-radius: 5px;
+            font-size: 1rem;
+            margin-left: 10px;
+            width: 150px;
+        }
+
+        /* Botones */
+        .buttons {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 10px;
+            margin-bottom: 20px;
+        }
+
+        button {
+            padding: 15px 20px;
+            border: none;
+            border-radius: 8px;
+            font-size: 0.9rem;
+            font-weight: bold;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            color: white;
+            text-align: center;
+        }
+
+        button:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.2);
+        }
+
+        button:active {
+            transform: translateY(0);
+        }
+
+        button:disabled {
+            opacity: 0.5;
+            cursor: not-allowed;
+        }
+
+        .btn-comer {
+            background: linear-gradient(135deg, #ff6b6b, #ee5a6f);
+            grid-column: 1;
+        }
+
+        .btn-dormir {
+            background: linear-gradient(135deg, #48dbfb, #1dd1a1);
+            grid-column: 2;
+        }
+
+        .btn-jugar {
+            background: linear-gradient(135deg, #ff9ff3, #feca57);
+            grid-column: 1 / 3;
+        }
+
+        /* Estado del gato */
+        .state-display {
+            text-align: center;
+            padding: 15px;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            color: white;
+            border-radius: 8px;
+            font-size: 1.1rem;
+            margin-bottom: 20px;
+            font-weight: bold;
+        }
+
+        /* Info */
+        .info {
+            background: #e8f5e9;
+            border-left: 4px solid #4caf50;
+            padding: 15px;
+            border-radius: 4px;
+            font-size: 0.9rem;
+            color: #333;
+            text-align: center;
+        }
+
+        /* Animaciones */
+        @keyframes fadeIn {
+            from {
+                opacity: 0;
+                transform: scale(0.95);
+            }
+            to {
+                opacity: 1;
+                transform: scale(1);
+            }
+        }
+
+        @keyframes bounce {
+            0%, 100% {
+                transform: translateY(0);
+            }
+            50% {
+                transform: translateY(-20px);
+            }
+        }
+
+        @keyframes wobble {
+            0%, 100% {
+                transform: rotate(-5deg);
+            }
+            50% {
+                transform: rotate(5deg);
+            }
+        }
+
+        @keyframes sleep {
+            0%, 100% {
+                transform: rotate(-10deg);
+            }
+            50% {
+                transform: rotate(-10deg) scaleY(0.9);
+            }
+        }
+
+        @keyframes pulse {
+            0%, 100% {
+                transform: scale(1);
+            }
+            50% {
+                transform: scale(1.1);
+            }
+        }
+
+        .pulse {
+            animation: pulse 0.5s ease-out;
+        }
+
+        /* Responsive */
+        @media (max-width: 600px) {
+            .container {
+                padding: 20px;
+            }
+
+            h1 {
+                font-size: 2rem;
+            }
+
+            .cat-container {
+                font-size: 80px;
+            }
+
+            .buttons {
+                grid-template-columns: 1fr;
+            }
+
+            .btn-jugar {
+                grid-column: 1;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <header>
+            <h1>🐱 Tamagochi</h1>
+            <p class="subtitle">¡Cuida de tu gato virtual!</p>
+        </header>
+
+        <div class="pet-name">
+            Nombre: <input type="text" id="petName" placeholder="Tu gato" value="Michi">
+        </div>
+
+        <div class="screen">
+            <div class="cat-container" id="catDisplay">🐱</div>
+            <div class="thought-bubble" id="thoughtBubble">¡Hola! 👋</div>
+        </div>
+
+        <div class="stats">
+            <div class="stat-item">
+                <div class="stat-label">
+                    <span>🍖 Hambre</span>
+                    <span id="hambreValue">50</span>
+                </div>
+                <div class="stat-bar">
+                    <div class="stat-fill hambre-fill" id="hambreBar" style="width: 50%"></div>
+                </div>
+            </div>
+
+            <div class="stat-item">
+                <div class="stat-label">
+                    <span>⚡ Energía</span>
+                    <span id="energiaValue">100</span>
+                </div>
+                <div class="stat-bar">
+                    <div class="stat-fill energia-fill" id="energiaBar" style="width: 100%"></div>
+                </div>
+            </div>
+
+            <div class="stat-item">
+                <div class="stat-label">
+                    <span>😊 Felicidad</span>
+                    <span id="felicidadValue">75</span>
+                </div>
+                <div class="stat-bar">
+                    <div class="stat-fill felicidad-fill" id="felicidadBar" style="width: 75%"></div>
+                </div>
+            </div>
+        </div>
+
+        <div class="state-display" id="stateDisplay">
+            Estado: Bien 😊
+        </div>
+
+        <div class="buttons">
+            <button class="btn-comer" id="comerBtn">🍖 Comer</button>
+            <button class="btn-dormir" id="dormirBtn">😴 Dormir</button>
+            <button class="btn-jugar" id="jugarBtn">🎮 Jugar</button>
+        </div>
+
+        <div class="info">
+            💡 Los estados del gato cambiarán con el tiempo. ¡Mantén feliz a tu gato!
+        </div>
+    </div>
+
+    <script src="app.js"></script>
+</body>
+</html>
