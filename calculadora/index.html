@@ -1,0 +1,74 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Calculadora (Prompt)</title>
+  <style>
+    body { font-family: Arial, sans-serif; max-width: 680px; margin: 40px auto; padding: 0 16px; }
+    h1 { font-size: 1.4rem; }
+    .acciones { margin-top: 20px; }
+    button { margin: 6px 6px 6px 0; padding: 8px 12px; font-size: 1rem; }
+    .nota { margin-top: 18px; color: #555; font-size: 0.95rem; }
+    .calculator { background:#fff; border:1px solid #e1e4e8; padding:16px; border-radius:8px; box-shadow: 0 4px 12px rgba(0,0,0,0.04); }
+    .calculator .row { margin-bottom:10px; display:flex; flex-direction:column; }
+    .calculator label { font-size:0.9rem; margin-bottom:6px; }
+    .calculator input[type="number"] { padding:8px 10px; font-size:1rem; border:1px solid #ccd0d6; border-radius:6px; }
+    .ops { margin-top:10px; display:flex; gap:8px; flex-wrap:wrap; }
+    .ops button { min-width:44px; height:44px; font-size:1.2rem; border-radius:8px; border:1px solid #bfc7cf; background:#f6f8fa; cursor:pointer; }
+    .ops button:hover { filter:brightness(0.98); }
+    .ops .secondary { background:#fff; border:1px dashed #c9cdd2; }
+    .result { margin-top:12px; display:flex; align-items:center; gap:10px; }
+    #resultDisplay { min-width:120px; padding:8px 10px; background:#f4f7fb; border-radius:6px; font-weight:600; }
+    .conversor { margin-top:16px; }
+    .row-inline { display:flex; gap:8px; align-items:center; }
+    .result-small { margin-top:8px; }
+  </style>
+</head>
+<body>
+  <h1>Calculadora visual</h1>
+  <p>Usa los campos y botones para realizar operaciones. Resultado inmediato en pantalla.</p>
+
+  <section class="calculator">
+    <div class="row">
+      <label for="numA">Número A</label>
+      <input id="numA" type="number" placeholder="Ej. 5" />
+    </div>
+
+    <div class="row">
+      <label for="numB">Número B</label>
+      <input id="numB" type="number" placeholder="Ej. 3" />
+    </div>
+
+    <div class="ops">
+      <button id="btnSum">+</button>
+      <button id="btnSub">−</button>
+      <button id="btnMul">×</button>
+      <button id="btnDiv">÷</button>
+      <button id="btnClear" class="secondary">Limpiar</button>
+    </div>
+
+    <div class="result">
+      <span>Resultado:</span>
+      <div id="resultDisplay">—</div>
+    </div>
+  </section>
+
+  <hr />
+
+  <section class="conversor">
+    <h2>Conversor °C → °F</h2>
+    <div class="row-inline">
+      <input id="celsiusInput" type="number" placeholder="Grados Celsius" />
+      <button id="btnConvertC">Convertir</button>
+    </div>
+    <div class="result-small"> <span id="convResult">—</span> </div>
+  </section>
+
+  <div class="nota">
+    <strong>Nota:</strong> Esta calculadora usa JavaScript del navegador. Si algo falla, abre la consola del DevTools.
+  </div>
+
+  <script src="script.js"></script>
+</body>
+</html>

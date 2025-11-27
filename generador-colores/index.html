@@ -1,0 +1,196 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Generador de Colores Aleatorios</title>
+  <style>
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+    }
+
+    body {
+      font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+      background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+      min-height: 100vh;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      padding: 20px;
+    }
+
+    .container {
+      background: white;
+      border-radius: 16px;
+      box-shadow: 0 20px 60px rgba(0, 0, 0, 0.3);
+      padding: 40px;
+      max-width: 500px;
+      width: 100%;
+    }
+
+    h1 {
+      text-align: center;
+      color: #333;
+      margin-bottom: 30px;
+      font-size: 2rem;
+    }
+
+    /* Color display box */
+    #colorBox {
+      width: 100%;
+      height: 300px;
+      border-radius: 12px;
+      margin-bottom: 30px;
+      transition: background-color 0.4s ease, box-shadow 0.4s ease;
+      box-shadow: 0 8px 20px rgba(0, 0, 0, 0.15);
+      background-color: #667eea;
+    }
+
+    /* Hexadecimal code display */
+    #colorCode {
+      text-align: center;
+      font-size: 1.5rem;
+      font-weight: bold;
+      color: #333;
+      margin-bottom: 20px;
+      font-family: 'Courier New', monospace;
+      letter-spacing: 2px;
+    }
+
+    /* Buttons container */
+    .buttons {
+      display: flex;
+      gap: 12px;
+      flex-direction: column;
+    }
+
+    button {
+      padding: 14px 28px;
+      font-size: 1rem;
+      border: none;
+      border-radius: 8px;
+      cursor: pointer;
+      font-weight: 600;
+      transition: all 0.3s ease;
+      text-transform: uppercase;
+      letter-spacing: 0.5px;
+    }
+
+    #btnGenerate {
+      background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+      color: white;
+      box-shadow: 0 4px 15px rgba(102, 126, 234, 0.4);
+    }
+
+    #btnGenerate:hover {
+      transform: translateY(-3px);
+      box-shadow: 0 6px 20px rgba(102, 126, 234, 0.6);
+    }
+
+    #btnGenerate:active {
+      transform: translateY(-1px);
+    }
+
+    #btnCopy {
+      background: #f0f0f0;
+      color: #333;
+      border: 2px solid #667eea;
+    }
+
+    #btnCopy:hover {
+      background: #667eea;
+      color: white;
+      transform: translateY(-3px);
+      box-shadow: 0 4px 15px rgba(102, 126, 234, 0.3);
+    }
+
+    #btnCopy:active {
+      transform: translateY(-1px);
+    }
+
+    /* Feedback message */
+    .feedback {
+      text-align: center;
+      margin-top: 15px;
+      min-height: 20px;
+      font-size: 0.9rem;
+      color: #27ae60;
+      font-weight: 600;
+      opacity: 0;
+      transition: opacity 0.3s ease;
+    }
+
+    .feedback.show {
+      opacity: 1;
+    }
+
+    /* Responsive design */
+    @media (max-width: 600px) {
+      .container {
+        padding: 25px;
+      }
+
+      h1 {
+        font-size: 1.5rem;
+        margin-bottom: 20px;
+      }
+
+      #colorBox {
+        height: 250px;
+        margin-bottom: 20px;
+      }
+
+      #colorCode {
+        font-size: 1.2rem;
+      }
+
+      button {
+        padding: 12px 20px;
+        font-size: 0.9rem;
+      }
+    }
+
+    @media (max-width: 400px) {
+      .container {
+        padding: 20px;
+      }
+
+      h1 {
+        font-size: 1.3rem;
+      }
+
+      #colorBox {
+        height: 200px;
+      }
+
+      #colorCode {
+        font-size: 1rem;
+      }
+    }
+  </style>
+</head>
+<body>
+  <div class="container">
+    <h1>Generador de Colores Aleatorios</h1>
+
+    <!-- Color display area -->
+    <div id="colorBox"></div>
+
+    <!-- Hexadecimal code display -->
+    <p id="colorCode">#667EEA</p>
+
+    <!-- Buttons -->
+    <div class="buttons">
+      <button id="btnGenerate">Generar Color</button>
+      <button id="btnCopy">Copiar Código</button>
+    </div>
+
+    <!-- Feedback message -->
+    <div class="feedback" id="feedback"></div>
+  </div>
+
+  <script src="script.js"></script>
+</body>
+</html>

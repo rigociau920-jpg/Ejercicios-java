@@ -1,0 +1,340 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Reloj Digital con Alarma</title>
+  <style>
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+    }
+
+    body {
+      font-family: 'Courier New', monospace;
+      background: linear-gradient(135deg, #0a0e27 0%, #1a1a3e 100%);
+      min-height: 100vh;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      padding: 20px;
+    }
+
+    .container {
+      background: #0d1117;
+      border-radius: 16px;
+      box-shadow: 0 20px 60px rgba(0, 0, 0, 0.6),
+                  inset 0 1px 0 rgba(255, 255, 255, 0.1);
+      padding: 40px;
+      max-width: 600px;
+      width: 100%;
+      border: 2px solid #1e1e3f;
+    }
+
+    /* Greeting */
+    .greeting {
+      text-align: center;
+      color: #64b5f6;
+      font-size: 1.2rem;
+      margin-bottom: 20px;
+      font-weight: 600;
+      letter-spacing: 1px;
+    }
+
+    /* Clock display */
+    .clock-display {
+      background: #000;
+      border: 3px solid #00ff00;
+      border-radius: 12px;
+      padding: 30px;
+      margin-bottom: 30px;
+      box-shadow: 0 0 20px rgba(0, 255, 0, 0.3),
+                  inset 0 0 10px rgba(0, 0, 0, 0.8);
+    }
+
+    #clock {
+      text-align: center;
+      font-size: 4rem;
+      color: #00ff00;
+      font-weight: bold;
+      letter-spacing: 8px;
+      text-shadow: 0 0 10px rgba(0, 255, 0, 0.8);
+      margin-bottom: 15px;
+      font-family: 'Courier New', monospace;
+    }
+
+    #date {
+      text-align: center;
+      font-size: 1.1rem;
+      color: #00dd00;
+      letter-spacing: 2px;
+    }
+
+    /* 24h/12h toggle */
+    .toggle-time {
+      text-align: center;
+      margin-bottom: 20px;
+    }
+
+    .toggle-btn {
+      background: #1a3a3a;
+      border: 2px solid #00ff00;
+      color: #00ff00;
+      padding: 8px 16px;
+      border-radius: 6px;
+      cursor: pointer;
+      font-weight: 600;
+      font-family: 'Courier New', monospace;
+      font-size: 0.9rem;
+      transition: all 0.3s ease;
+    }
+
+    .toggle-btn:hover {
+      background: #00ff00;
+      color: #000;
+      box-shadow: 0 0 15px rgba(0, 255, 0, 0.6);
+    }
+
+    /* Alarm section */
+    .alarm-section {
+      background: #0a1f1f;
+      border: 2px solid #ff6b6b;
+      border-radius: 12px;
+      padding: 20px;
+      margin-bottom: 20px;
+    }
+
+    .alarm-section h3 {
+      color: #ff6b6b;
+      margin-bottom: 15px;
+      font-size: 1.2rem;
+      letter-spacing: 2px;
+    }
+
+    .alarm-input-group {
+      display: flex;
+      gap: 10px;
+      margin-bottom: 15px;
+      flex-wrap: wrap;
+    }
+
+    #alarmInput {
+      flex: 1;
+      min-width: 150px;
+      padding: 12px 16px;
+      background: #000;
+      border: 2px solid #ff6b6b;
+      border-radius: 6px;
+      color: #ff6b6b;
+      font-family: 'Courier New', monospace;
+      font-size: 1rem;
+      text-align: center;
+    }
+
+    #alarmInput:focus {
+      outline: none;
+      box-shadow: 0 0 10px rgba(255, 107, 107, 0.5);
+    }
+
+    button {
+      padding: 12px 20px;
+      border: 2px solid;
+      border-radius: 6px;
+      cursor: pointer;
+      font-weight: 600;
+      font-family: 'Courier New', monospace;
+      font-size: 0.95rem;
+      letter-spacing: 1px;
+      transition: all 0.3s ease;
+      text-transform: uppercase;
+    }
+
+    #btnSetAlarm {
+      background: #ff6b6b;
+      border-color: #ff6b6b;
+      color: #000;
+      flex: 1;
+      min-width: 130px;
+    }
+
+    #btnSetAlarm:hover {
+      background: #ff5252;
+      box-shadow: 0 0 15px rgba(255, 107, 107, 0.5);
+      transform: translateY(-2px);
+    }
+
+    #btnCancelAlarm {
+      background: transparent;
+      border-color: #ff6b6b;
+      color: #ff6b6b;
+      min-width: 130px;
+    }
+
+    #btnCancelAlarm:hover {
+      background: #ff6b6b;
+      color: #000;
+      box-shadow: 0 0 15px rgba(255, 107, 107, 0.5);
+    }
+
+    #btnCancelAlarm:disabled {
+      opacity: 0.4;
+      cursor: not-allowed;
+    }
+
+    /* Alarm status */
+    .alarm-status {
+      color: #ffeb3b;
+      font-size: 0.95rem;
+      margin-top: 12px;
+      letter-spacing: 1px;
+    }
+
+    .alarm-status.active {
+      color: #ff6b6b;
+      font-weight: bold;
+    }
+
+    /* Notification area */
+    .notification {
+      background: #1a1a1a;
+      border: 2px solid #00ff00;
+      border-radius: 12px;
+      padding: 20px;
+      text-align: center;
+      min-height: 40px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      color: #00ff00;
+      font-size: 1.1rem;
+      letter-spacing: 1px;
+      opacity: 0;
+      transition: opacity 0.3s ease;
+    }
+
+    .notification.show {
+      opacity: 1;
+    }
+
+    .notification.alarm-ringing {
+      background: #ff0000;
+      border-color: #ff0000;
+      color: #fff;
+      font-weight: bold;
+      animation: blink 0.5s infinite;
+    }
+
+    /* Blinking animation for alarm */
+    @keyframes blink {
+      0%, 49% {
+        opacity: 1;
+      }
+      50%, 100% {
+        opacity: 0.3;
+      }
+    }
+
+    /* Alarm indicator */
+    .alarm-indicator {
+      display: inline-block;
+      width: 16px;
+      height: 16px;
+      background: transparent;
+      border: 2px solid #ff6b6b;
+      border-radius: 50%;
+      margin-left: 10px;
+      animation: none;
+    }
+
+    .alarm-indicator.active {
+      background: #ff6b6b;
+      animation: pulse 1s infinite;
+    }
+
+    @keyframes pulse {
+      0%, 100% {
+        opacity: 1;
+        transform: scale(1);
+      }
+      50% {
+        opacity: 0.7;
+        transform: scale(1.1);
+      }
+    }
+
+    /* Responsive */
+    @media (max-width: 600px) {
+      .container {
+        padding: 25px;
+      }
+
+      #clock {
+        font-size: 2.5rem;
+        letter-spacing: 4px;
+      }
+
+      #date {
+        font-size: 0.9rem;
+      }
+
+      .alarm-input-group {
+        flex-direction: column;
+      }
+
+      #alarmInput,
+      button {
+        width: 100%;
+      }
+    }
+
+    @media (max-width: 400px) {
+      .container {
+        padding: 18px;
+      }
+
+      #clock {
+        font-size: 2rem;
+        letter-spacing: 2px;
+      }
+
+      .greeting {
+        font-size: 1rem;
+      }
+    }
+  </style>
+</head>
+<body>
+  <div class="container">
+    <!-- Greeting -->
+    <div class="greeting" id="greeting">Buenos días</div>
+
+    <!-- Clock Display -->
+    <div class="clock-display">
+      <div id="clock">00:00:00</div>
+      <div id="date">Lunes, 01 de Enero de 2025</div>
+    </div>
+
+    <!-- Toggle 24h/12h -->
+    <div class="toggle-time">
+      <button class="toggle-btn" id="btnToggleTime">Cambiar a 12h</button>
+    </div>
+
+    <!-- Alarm Section -->
+    <div class="alarm-section">
+      <h3>Alarma <span class="alarm-indicator" id="alarmIndicator"></span></h3>
+      <div class="alarm-input-group">
+        <input type="time" id="alarmInput" placeholder="HH:MM" />
+        <button id="btnSetAlarm">Establecer</button>
+      </div>
+      <button id="btnCancelAlarm" disabled>Cancelar Alarma</button>
+      <div class="alarm-status" id="alarmStatus">Sin alarma configurada</div>
+    </div>
+
+    <!-- Notification Area -->
+    <div class="notification" id="notification">Listo</div>
+  </div>
+
+  <script src="script.js"></script>
+</body>
+</html>

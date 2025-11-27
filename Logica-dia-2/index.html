@@ -1,0 +1,45 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Calculadora (Prompt)</title>
+  <style>
+    body { font-family: Arial, sans-serif; max-width: 680px; margin: 40px auto; padding: 0 16px; }
+    h1 { font-size: 1.4rem; }
+    .acciones { margin-top: 20px; }
+    button { margin: 6px 6px 6px 0; padding: 8px 12px; font-size: 1rem; }
+    .nota { margin-top: 18px; color: #555; font-size: 0.95rem; }
+  </style>
+</head>
+<body>
+  <h1>Calculadora básica (usando prompts)</h1>
+  <p>Esta página utiliza `prompt()` para pedir los valores. Haz clic en los botones para abrir las ventanas de entrada.</p>
+
+  <div class="acciones">
+    <button id="btnCalc">Abrir calculadora</button>
+    <button id="btnConv">Convertir °C → °F</button>
+  </div>
+
+  <div class="nota">
+    <strong>Nota:</strong> Si pruebas el archivo desde el sistema de archivos (file://) algunos navegadores pueden bloquear ciertas funciones; abre con un servidor local si hay problemas.
+  </div>
+
+  <script src="script.js"></script>
+  <script>
+    // Conectar los botones a las funciones definidas en script.js
+    const btnCalc = document.getElementById('btnCalc');
+    const btnConv = document.getElementById('btnConv');
+
+    if (btnCalc) btnCalc.addEventListener('click', () => {
+      if (typeof promptCalculadora === 'function') promptCalculadora();
+      else alert('La función promptCalculadora no está definida. Asegúrate de que script.js se cargó correctamente.');
+    });
+
+    if (btnConv) btnConv.addEventListener('click', () => {
+      if (typeof promptCelsiusAFahrenheit === 'function') promptCelsiusAFahrenheit();
+      else alert('La función promptCelsiusAFahrenheit no está definida.');
+    });
+  </script>
+</body>
+</html>
